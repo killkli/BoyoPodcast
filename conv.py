@@ -9,10 +9,14 @@ import numpy as np
 import soundfile as sf
 import torch
 import tqdm
-import librosa
+from pydub import AudioSegment
 
 import re
 from podcastfy.client import generate_podcast
+
+url = "https://www.boyo.org.tw/boyoV2/special_column/boyo_stories/%E6%88%91%E5%8F%AA%E6%98%AF%E7%9A%AE%EF%BC%8C%E6%88%91%E4%B8%8D%E5%A3%9E%EF%BC%81"
+topic = "我只是皮，我不壞！"
+
 conversation_config = {
     "conversation_style": [
         "有趣幽默",
@@ -36,7 +40,7 @@ conversation_config = {
         "機智幽默"
     ],
     "creativity": 1,
-    "user_instructions": "成品稿件中不可出現可識別的人名，如果有真實人名出現，請修正為代稱，例如小華老師、阿明等",
+    "user_instructions": "成品稿件中不可出現可識別的人名，如果有真實人名出現，請修正為代稱，例如小華老師、阿明等，請重複檢查文本中有無人名，有的話務必改用代稱",
     "max_num_chunks": 8,
     "min_chunk_size": 600,
     "text_to_speech": {
@@ -142,18 +146,16 @@ def generate_speech(dialogue, voice, filename):
     generator = zh_pipeline(dialogue, voice=voice, speed=speed_callable)
     result = next(generator)
     wav = result.audio
-    sf.write(filename, wav, SAMPLE_RATE)
     return wav
 
 
 def convert_to_mp3(wav_file, mp3_file, sample_rate=SAMPLE_RATE):
     """Converts a WAV file to MP3 using librosa and soundfile."""
     try:
-        # Load the WAV file using librosa
-        y, sr = librosa.load(wav_file, sr=sample_rate)
 
-        # Save as MP3 using soundfile with the correct subtype
-        sf.write(mp3_file, y, sr, format='MP3', subtype='PCM_16')  # Or another suitable subtype
+        # Use pydub to convert WAV to MP3
+        sound = AudioSegment.from_wav(wav_file)
+        sound.export(mp3_file, format="mp3")
 
         print(f"Successfully converted {wav_file} to {mp3_file}")
 
@@ -164,9 +166,9 @@ def convert_to_mp3(wav_file, mp3_file, sample_rate=SAMPLE_RATE):
 if __name__ == "__main__":
 
     filepath = generate_podcast(
-        urls=["https://www.boyo.org.tw/boyoV2/special_column/teaching_site/%E8%80%81%E5%B8%AB%E4%BD%A0%E6%98%8E%E5%B9%B4%E9%82%84%E6%9C%83%E6%95%99%E6%88%91%E5%80%91%E5%97%8E%EF%BC%9F"],
+        urls=[url],
         transcript_only=True,
-        topic="老師你明年還會教我們嗎？",
+        topic=topic,
         conversation_config=conversation_config,
         llm_model_name="gemini-2.0-flash-lite"
     )
@@ -187,11 +189,6 @@ if __name__ == "__main__":
         wav = generate_speech(dialogue, voice, wav_filename)
         combined_audio.append(wav)
 
-        # Convert each individual WAV file to MP3
-        mp3_filename = path / f"dialogue_{i:03}_{speaker}.mp3"
-        convert_to_mp3(wav_filename, mp3_filename)
-
-
     combined_audio = np.concatenate(combined_audio)
     combined_wav_filename = path / 'combined_dialogue.wav'
     sf.write(combined_wav_filename, combined_audio, SAMPLE_RATE)
@@ -199,6 +196,5 @@ if __name__ == "__main__":
     # Convert the combined WAV file to MP3
     combined_mp3_filename = path / 'combined_dialogue.mp3'
     convert_to_mp3(combined_wav_filename, combined_mp3_filename)
-
 
     print("Speech generation complete. Audio saved to combined_dialogue.wav/mp3 and individual files.")
