@@ -1,0 +1,7 @@
+kokoro==0.9.4
+librosa==0.11.0
+numpy==2.2.5
+podcastfy==0.4.1
+soundfile==0.13.1
+torch==2.7.0
+tqdm==4.67.1

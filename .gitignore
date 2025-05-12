@@ -1,0 +1,139 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+dist/
+build/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.whl
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written into a dist/ folder.
+#  See https://github.com/pyinstaller/pyinstaller/blob/development/docs/spec-files.rst
+*.manifest
+*.spec
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Spyder project
+.spyderproject
+.spyproject
+
+# Rope project
+.ropeproject
+
+# mkdocs
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Environments
+.env
+.venv
+venv/
+env/
+
+# Poetry
+poetry.lock
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# Environments (more comprehensive)
+.tox/
+.nox/
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+*/.venv/
+*/venv/
+*/env/
+*/ENV/
+*/env.bak/
+*/venv.bak/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor backups
+*~
+# VS Code
+.vscode/
+
+# JetBrains IDEs (IntelliJ, PyCharm, etc.)
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Temp files
+*.tmp
+*.swp
+*#
+
+# Log files
+*.log
+
+# Coverage data
+.coverage
+coverage.xml
+htmlcov/
+
+# Compiled artifacts
+*.pyc
+*.pyo
+*.pyd
+
+# Other
+__pypackages__/
+*.mo
+
+# Optional: Ignore data files (if you don't want them in your repo)
+# data/
+
+# Optional: Ignore test results (if you don't want them in your repo)
+# test_results/
+
+# Optional: Ignore documentation build output
+# docs/_build/
+
+# Optional: Ignore specific files or directories you don't want tracked
+# my_secret_file.txt
+# my_private_directory/
