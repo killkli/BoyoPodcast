@@ -7,9 +7,11 @@ requires-python = ">=3.12"
 dependencies = [
     "cn2an>=0.5.23",
     "ffmpeg>=1.4",
+    "gradio>=5.29.0",
     "jieba>=0.42.1",
     "kokoro==0.9.4",
     "ordered-set>=4.1.0",
+    "pip>=25.1.1",
     "podcastfy==0.4.1",
     "pydub>=0.25.1",
     "pypinyin",

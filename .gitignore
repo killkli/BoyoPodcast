@@ -137,3 +137,6 @@ __pypackages__/
 # Optional: Ignore specific files or directories you don't want tracked
 # my_secret_file.txt
 # my_private_directory/
+data/**
+*.mp3
+*.wav
